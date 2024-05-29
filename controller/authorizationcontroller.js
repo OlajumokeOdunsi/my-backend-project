@@ -6,12 +6,13 @@ const authorizeJWT = (req, res, next) => {
 
     if (authHeader) {
         const token = authHeader.split(' ')[1];
-        console.log("token: ", token)
+        // console.log("token: ", token)
         jwt.verify(token, "secret", (err, user) => {
             if (err) {
                 console.log(err);
                 return res.sendStatus(403);
             }
+            console.log(user)
             req.user = user;
             next();
         });

@@ -7,16 +7,17 @@ const userDeposit =require ("./authorizationcontroller")
 const depositMoney = async (req, res) => {
 
     try {
-        const { accountnumber, balance } = req.body
-        const userExists = await User.findOne({
+        const { accountnumber, deposit } = req.body
+        const user = await User.findOne({
             where: { accountnumber }
         })
-        console.log(userExists)
-        if (userExists) {
+        const newBalance = user.balance + deposit;
+        // console.log(user)
+        if (user) {
             await User.update(
                 // UPDATE USER BALANCE TO A PARTICULAR VALUE
                 // UPDATE USER WHERE ACCOUNT NUMBER   IS THE ACCOUNT NUMBER IN OUR REQUEST.BODY
-                { balance: balance },
+                { balance: newBalance },
                 {
                     where: {
                         accountnumber: accountnumber,

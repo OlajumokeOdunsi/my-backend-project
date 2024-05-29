@@ -1,7 +1,7 @@
-const express = require("express")
-const productRouter = require("./router/product.router")
-const depositRouter = require ("./router/deposit.router")
-const userRouter = require("./router/user.router")
+const express = require("express");
+const productRouter = require("./router/product.router");
+const transactionRouter = require ("./router/deposit.router");
+const userRouter = require("./router/user.router");
 // cont transferRouter = require("./router/")
 const app = express()
 const mysql = require("mysql")
@@ -17,7 +17,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use("/products", productRouter)
 app.use("/user", userRouter)
-app.use("/deposit", depositRouter)
+app.use("/transaction", transactionRouter)
 // app.use("/transfer", )
 
 
@@ -25,4 +25,5 @@ app.use("/deposit", depositRouter)
 
 app.listen(PORT,()=>{
     console.log(`server is running on ${PORT}`)
+    // console.log()
 })

@@ -4,7 +4,7 @@ const{authorizeJWT} = require("../controller/authorizationcontroller")
 
 
 const router = Router()
-router.post("/",  depositMoney)
+router.post("/deposit",  depositMoney)
 router.post ("/transfer", authorizeJWT,  Transfer, )
 
 module.exports= router
