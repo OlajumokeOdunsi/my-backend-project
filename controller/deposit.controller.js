@@ -1,6 +1,7 @@
 // put money to the balanve account number and amount
 
 
+
 const User = require("../model/user.model")
 const userDeposit =require ("./authorizationcontroller")
 
@@ -40,29 +41,49 @@ const depositMoney = async (req, res) => {
 
 const Transfer = async(req, res) =>{
 
-    // res.json({message: req.user})
-    const userEmail = req.user.email
-const userExists = await User.findOne({
-    where: {
-        email: userEmail
+    const {amount, recipientAcc} = req.body;
+
+    const user = await User.findOne({
+        where: {
+            email: req.user.email
+        }
+    });
+
+    const recipient = await User.findOne({
+        where: {
+            accountnumber: recipientAcc
+        }
+    });
+
+    if (!user) return res.status(400).send({Error: "Account Not Found!"})
+    
+    if (!recipient) return res.status(400).send({Error: "Recipient Account Not Found!"})
+
+    if (user.balance < amount ) return res.status(400).send({Error: "Barawo!"})
+
+    
+    try {
+        const newBalance = user.balance - amount;
+
+        await user.update(
+            {balance:newBalance},
+        );
+
+        try {
+            const recipientNewbalance = recipient.balance + amount;
+
+            await recipient.update(
+                { balance: recipientNewbalance },
+            );
+
+            return res.status(200).send("funds sent successfully")
+                
+        } catch(e){
+            return res.status(400).send({Error: e.message})
+        }
+    } catch(e){
+        return res.status(400).send({Error: e.message})
     }
-})
-if (userExists){
-   res.json({user: userExists})
-   
-
-   
-//    verify the user balance lets say 50000, 
-//    send to another person peerson that exist on the Database, this is also updated  
-//    then whwen we it send, the 5000 shoukd be deducted from the account,
-//     while the 5000 should be credited in the other bpersons accoudt which meand this is updated
-
-    // send money from one account to the other.Transfer check balance first
 }
-}
-
-
-
-
-
+            
 module.exports = { depositMoney, Transfer }
