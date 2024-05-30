@@ -10,29 +10,23 @@ function getRandomNumber(min, max) {
 
 const registerUser = async (req, res) => {
     console.log(req.body)
-    // let randomNumber = getRandomNumber(1000000000, 9999999999);
+    let randomNumber = getRandomNumber(1000000000, 9999999999);
     // console.log(randomNumber)
-    const val = await bcrypt.hash("78980", 15)
 
     try {
         const { firstname, lastname, password, email, } = req.body
 
-        // console.log(val)
 
-        // const userExists = await User.findOne({
-        //     where: { email }
-        // });
+        const userExists = await User.findOne({
+            where: { email }
+        });
+        // console.log("hello")
+        if (userExists) {
+            // console.log("2")
 
-        // if (userExists) {
-        //     return res.status(400).send('Email is already associated with an account');
-        // };
+            return res.status(400).send('Email is already associated with an account');
+        };
 
-
-        // put money to the balanve account number and amount
-
-        // Generate a random number and save it to the database
-        let randomNumber = (Date.now().toString(10));
-        console.log(randomNumber)
 
 
 
@@ -53,6 +47,7 @@ const registerUser = async (req, res) => {
         return res.status(500).send({ msg: 'Error in registering user', error: err, });
     }
 }
+
 // Authentication
 const signInUser = async (req, res) => {
 

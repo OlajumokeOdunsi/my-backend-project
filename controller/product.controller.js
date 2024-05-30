@@ -37,6 +37,7 @@ const createProduct = async (req, res) =>{
         description:descriptionCategory,
         image:imageCategory
     })
+    console.log(productCategory)
     res.status(200).json(productCategory)
 
 }
