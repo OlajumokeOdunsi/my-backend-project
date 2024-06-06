@@ -1,3 +1,6 @@
+const dotenv = require("dotenv")
+dotenv.config()
+
 const express = require("express");
 const productRouter = require("./router/product.router");
 const transactionRouter = require ("./router/deposit.router");
@@ -5,11 +8,7 @@ const userRouter = require("./router/user.router");
 // cont transferRouter = require("./router/")
 const app = express()
 const mysql = require("mysql")
-const PORT = 4000
 const cors = require("cors")
-const dotenv = require("dotenv")
-
-dotenv.config()
 
 app.use(express.json())
 app.use(cors())
@@ -23,6 +22,6 @@ app.use("/transaction", transactionRouter)
 
 
 
-app.listen(PORT,()=>{
-    console.log(`server is running on ${PORT}`)
+app.listen(process.env.PORT,()=>{
+    console.log(`server is running on ${process.env.PORT}`)
 })
