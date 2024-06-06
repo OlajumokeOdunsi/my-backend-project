@@ -1,8 +1,8 @@
 const {Sequelize} = require("sequelize")
-const sequelize = new Sequelize('ecommerce', 'root', '93031532', {
-    host: 'localhost',
+const sequelize = new Sequelize('defaultdb', 'avnadmin', process.env.DATABASE_PASSWORD, {
+    host: 'mysql-37cc2c1b-jumaiodunsi-97e6.e.aivencloud.com',
     dialect: "mysql",
-    port: '3306'
+    port: '19916'
   });
   
   
