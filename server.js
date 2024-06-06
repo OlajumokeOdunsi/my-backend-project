@@ -25,5 +25,4 @@ app.use("/transaction", transactionRouter)
 
 app.listen(PORT,()=>{
     console.log(`server is running on ${PORT}`)
-    // console.log()
 })
